@@ -4,6 +4,7 @@ from eve_sqlalchemy.decorators import registerSchema
 
 from sqlalchemy import func, ForeignKey
 from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy.orm import relationship
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -25,8 +26,26 @@ def RegisterTable(tableClass):
 
 # --------------------
 
-def MakeForeignKey(foreignTableClass):
-    return Column(Integer, ForeignKey(foreignTableClass.__tablename__ + "._id"))
+def MakeParentChild(parentClass, childClass):
+    """Establishes a parent-child relationship between the two table classes
+    listed. The child will add a database column, named based on the parent's
+    singular form (such as 'account_id'), as well as a relationship back
+    reference for programmatic access ('account', in this case). The parent gets
+    a plural form relationship (e.g., 'entries'). Additionally, this sets some
+    class variables to automatically expand the children when printing in
+    expanded form. See expandedValue (in TableBase), below.
+    """
+
+    setattr(childClass, parentClass._singular + '_id',
+            Column(Integer, ForeignKey(parentClass.__tablename__ + '._id')))
+
+    setattr(parentClass, childClass._plural,
+            relationship(childClass, backref=parentClass._singular, lazy='dynamic'))
+
+    if not hasattr(parentClass, '_expandedFields'):
+        parentClass._expandedFields = []
+
+    parentClass._expandedFields.append(childClass._plural)
 
 # --------------------
 
@@ -52,16 +71,22 @@ class TableBase(Base):
         val = {}
 
         for field in DOMAIN[self.__tablename__]['schema']:
-            val[field] = self.__dict__[field]
+            val[field] = getattr(self, field)
 
         return val
 
     @property
     def expandedValue(self):
-        """This is a hook to allow tables to inject additional entries beyond
-        those provided in the schema. This is intended to be used for composed
-        objects, so that the expanded value dictionary also contains all the
-        expanded values of contained objects, recursively.
+        """This injects additional items into the dictionary, based on the
+        relationships established from MakeParentChild. If the special
+        _expandedFields attribute is found on the class-level, it is used to
+        figure out the children and recursively expand their content.
         """
 
-        return self.value
+        val = self.value
+
+        if hasattr(self.__class__, '_expandedFields'):
+            for field in self.__class__._expandedFields:
+                val[field] = [item.expandedValue for item in getattr(self, field).all()]
+
+        return val

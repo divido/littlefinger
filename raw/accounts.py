@@ -7,7 +7,9 @@ from .table_base import TableBase, RegisterTable
 # --------------------------------------------------------------------------------
 
 class Account(TableBase):
-    __tablename__ = 'account'
+    _singular = 'account'
+    _plural = 'accounts'
+    __tablename__ = _plural
 
     name = Column(String(80))
     kind = Column(Enum(
@@ -17,11 +19,5 @@ class Account(TableBase):
         'credit',
         'friendly'
     ))
-
-    @property
-    def expandedValue(self):
-        val = self.value
-        val['entries'] = [item.expandedValue for item in self.entries.all()]
-        return val
 
 RegisterTable(Account)
