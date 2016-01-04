@@ -5,7 +5,11 @@ from eve import Eve
 from eve_sqlalchemy import SQL
 from eve_sqlalchemy.validation import ValidatorSQL
 
-from .tables import DOMAIN, Base
+from .table_base import DOMAIN, Base
+
+from .server_info import *
+from .accounts import *
+from .transactions import *
 
 # --------------------------------------------------------------------------------
 

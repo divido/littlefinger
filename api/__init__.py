@@ -8,4 +8,4 @@ app.config['APPLICATION_ROOT'] = '/api'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../data.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-import api.accounts
+from .accounts import *

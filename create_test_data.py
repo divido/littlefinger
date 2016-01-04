@@ -3,7 +3,7 @@
 from datetime import date
 
 from raw import db
-from raw.tables import User, Account, Entry, Transaction, EntrySubdivision
+from raw import User, Account, Entry, Transaction, EntrySubdivision
 
 db.drop_all()
 db.create_all()

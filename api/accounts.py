@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-from api import app
-from raw import db
-from raw.tables import Account
+from . import app
+from raw import db, Account
 
 from flask import jsonify
 
