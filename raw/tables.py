@@ -3,7 +3,7 @@
 from eve_sqlalchemy.decorators import registerSchema
 
 from sqlalchemy import func, ForeignKey
-from sqlalchemy import Column, String, Integer, DateTime, Enum
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, Enum
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -64,6 +64,16 @@ class TableBase(Base):
 
 # --------------------
 
+class User(TableBase):
+    __tablename__ = 'user'
+
+    username = Column(String(80))
+    display = Column(String(80))
+
+RegisterTable(User)
+
+# --------------------
+
 class Account(TableBase):
     __tablename__ = 'account'
 
@@ -86,13 +96,54 @@ RegisterTable(Account)
 
 # --------------------
 
+class Transaction(TableBase):
+    __tablename__ = '_transaction'
+
+    name = Column(String(256))
+    description = Column(String(256))
+    sealed = Column(Boolean)
+
+    @property
+    def expandedValue(self):
+        val = self.value
+        val['subdivisions'] = [item.expandedValue for item in self.subdivisions.all()]
+        return val
+
+RegisterTable(Transaction)
+
+# --------------------
+
 class Entry(TableBase):
     __tablename__ = 'entry'
 
     transactionDate = Column(DateTime)
     postDate = Column(DateTime)
     description = Column(String(256))
+    amount = Column(Integer)
+    sealed = Column(Boolean)
+
     account_id = Column(Integer, ForeignKey('account._id'))
+
+    @property
+    def expandedValue(self):
+        val = self.value
+        val['subdivisions'] = [item.expandedValue for item in self.subdivisions.all()]
+        return val
 
 RegisterTable(Entry)
 Account.entries = relationship(Entry, backref='account', lazy='dynamic')
+
+# --------------------
+
+class EntrySubdivision(TableBase):
+    __tablename__ = 'entry_subdivision'
+
+    description = Column(String(256))
+    amount = Column(Integer)
+
+    entry_id = Column(Integer, ForeignKey('entry._id'))
+    transaction_id = Column(Integer, ForeignKey('_transaction._id'))
+
+RegisterTable(EntrySubdivision)
+Entry.subdivisions = relationship(EntrySubdivision, backref='entry', lazy='dynamic')
+Transaction.subdivisions = relationship(EntrySubdivision, backref='transaction', lazy='dynamic')
