@@ -16,7 +16,7 @@ class Account(TableBase):
     _plural = 'accounts'
     __tablename__ = _plural
 
-    name = Column(String(80))
+    name = Column(String(64))
     kind = Column(Enum(
         'checking',
         'savings',

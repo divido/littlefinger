@@ -14,7 +14,7 @@ class User(TableBase):
     _plural = 'users'
     __tablename__ = _plural
 
-    username = Column(String(80))
-    display = Column(String(80))
+    username = Column(String(32))
+    display = Column(String(32))
 
 RegisterTable(User)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Text
 
 from .table_base import TableBase, RegisterTable
 
@@ -17,7 +17,7 @@ class Type(TableBase):
     _plural = 'types'
     __tablename__ = _plural
 
-    name = Column(String(80))
-    description = Column(String(256))
+    name = Column(String(64))
+    description = Column(Text)
 
 RegisterTable(Type)

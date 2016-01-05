@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, String, Integer, Boolean, DateTime
+from sqlalchemy import Column, String, Text, Integer, Boolean, DateTime
 
 from .table_base import TableBase, RegisterTable, MakeParentChild
 from .accounts import Account
@@ -26,8 +26,8 @@ class Transaction(TableBase):
     _plural = 'transactions'
     __tablename__ = _plural
 
-    name = Column(String(256))
-    description = Column(String(256))
+    name = Column(String(128))
+    description = Column(Text)
     sealed = Column(Boolean)
 
 RegisterTable(Transaction)
@@ -46,7 +46,7 @@ class Entry(TableBase):
 
     transactionDate = Column(DateTime)
     postDate = Column(DateTime)
-    description = Column(String(256))
+    description = Column(Text)
     amount = Column(Integer)
     sealed = Column(Boolean)
 
@@ -66,7 +66,7 @@ class EntrySubdivision(TableBase):
     _plural = 'subdivisions'
     __tablename__ = _plural
 
-    description = Column(String(256))
+    description = Column(Text)
     amount = Column(Integer)
 
 MakeParentChild(Entry, EntrySubdivision)
