@@ -4,6 +4,7 @@ from sqlalchemy import Column, String, Integer, Boolean, DateTime
 
 from .table_base import TableBase, RegisterTable, MakeParentChild
 from .accounts import Account
+from .types import Type
 
 # --------------------------------------------------------------------------------
 
@@ -70,4 +71,5 @@ class EntrySubdivision(TableBase):
 
 MakeParentChild(Entry, EntrySubdivision)
 MakeParentChild(Transaction, EntrySubdivision)
+MakeParentChild(Type, EntrySubdivision)
 RegisterTable(EntrySubdivision)

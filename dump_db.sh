@@ -15,6 +15,11 @@ select _id, username, display from users;
 select _id, name, kind from accounts;
 
 .system echo
+.system echo '~~~~ Types ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+.width 4 20 20
+select _id, name, description from types;
+
+.system echo
 .system echo '~~~~ Transactions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 .width 4 20 20 6
 select _id, name, description, sealed from transactions;
@@ -26,7 +31,7 @@ select _id, transactionDate as tranDate, postDate, description, amount, sealed, 
 
 .system echo
 .system echo '~~~~ Subdivisions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-.width 4 20 -6 8 8
-select _id, description, amount, entry_id, transaction_id as tran_id from subdivisions;
+.width 4 20 -6 8 8 8
+select _id, description, amount, entry_id, transaction_id as tran_id, type_id from subdivisions;
 
 EOF

@@ -9,6 +9,7 @@ from .table_base import DOMAIN, Base
 
 from .server_info import *
 from .accounts import *
+from .types import *
 from .transactions import *
 
 # --------------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 from datetime import date
 
 from raw import db
-from raw import User, Account, Entry, Transaction, EntrySubdivision
+from raw import User, Account, Type, Entry, Transaction, EntrySubdivision
 
 db.drop_all()
 db.create_all()
@@ -33,6 +33,19 @@ acct = {
 db.session.add_all(acct.values())
 
 # --------------------------------------------------------------------------------
+# Create some types
+
+types = {
+    'clth': Type(name='Clothing'),
+    'groc': Type(name='Grocery'),
+    'tran': Type(name='Transfer'),
+    'fees': Type(name='Bank Fees'),
+    'pay':  Type(name='Paycheck'),
+    'rent': Type(name='Rent'),
+    'gas':  Type(name='Gas')
+}
+
+# --------------------------------------------------------------------------------
 # Create the transactions / etc.
 
 jan1 = date(2016, 1, 1)
@@ -54,7 +67,7 @@ entry['pay'] = Entry(transactionDate=jan1, postDate=jan1, sealed=True,
 trans['pay'] = Transaction(name='Acme Paycheck', sealed=True)
 
 subd['pay'] = EntrySubdivision(entry=entry['pay'], transaction=trans['pay'],
-                               amount=+100000)
+                               amount=+100000, type=types['pay'])
 
 # --------------------
 
@@ -66,10 +79,10 @@ trans['dpt'] = Transaction(name='Department Store', sealed=True,
                            description='Clothes for Winter')
 
 subd['dpt1'] = EntrySubdivision(entry=entry['dpt'], transaction=trans['dpt'],
-                                amount=-2500, description='Pants')
+                                amount=-2500, description='Pants', type=types['clth'])
 
 subd['dpt2'] = EntrySubdivision(entry=entry['dpt'], transaction=trans['dpt'],
-                                amount=-5000, description='Sweaters')
+                                amount=-5000, description='Sweaters', type=types['clth'])
 
 # --------------------
 
@@ -80,16 +93,16 @@ entry['grc'] = Entry(transactionDate=jan2, postDate=jan2, sealed=True,
 trans['grc'] = Transaction(name='Local Supermarket', sealed=True)
 
 subd['grc1'] = EntrySubdivision(entry=entry['grc'], transaction=trans['grc'],
-                                amount=-3425, description='Meats')
+                                amount=-3425, description='Meats', type=types['groc'])
 
 subd['grc2'] = EntrySubdivision(entry=entry['grc'], transaction=trans['grc'],
-                                amount=-4260, description='Vegetables')
+                                amount=-4260, description='Vegetables', type=types['groc'])
 
 subd['grc3'] = EntrySubdivision(entry=entry['grc'], transaction=trans['grc'],
-                                amount=-2135, description='Grains')
+                                amount=-2135, description='Grains', type=types['groc'])
 
 subd['grc4'] = EntrySubdivision(entry=entry['grc'], transaction=trans['grc'],
-                                amount=-2225, description='Dairy')
+                                amount=-2225, description='Dairy', type=types['groc'])
 
 # --------------------
 
@@ -104,13 +117,13 @@ entry['wd2'] = Entry(transactionDate=jan3, postDate=jan3, sealed=True,
 trans['wd'] = Transaction(name='ATM Withdrawal', sealed=True)
 
 subd['wd1'] = EntrySubdivision(entry=entry['wd1'], transaction=trans['wd'],
-                               amount=-6000, description='Withdrawal Amount')
+                               amount=-6000, description='Withdrawal Amount', type=types['tran'])
 
 subd['wd2'] = EntrySubdivision(entry=entry['wd1'], transaction=trans['wd'],
-                               amount=-200, description='Withdrawal Fee')
+                               amount=-200, description='Withdrawal Fee', type=types['fees'])
 
 subd['wd3'] = EntrySubdivision(entry=entry['wd2'], transaction=trans['wd'],
-                               amount=+6000, description='Withdrawal Amount')
+                               amount=+6000, description='Withdrawal Amount', type=types['tran'])
 
 # --------------------
 
@@ -121,7 +134,7 @@ entry['gas'] = Entry(transactionDate=jan2, postDate=jan4, sealed=True,
 trans['gas'] = Transaction(name='Pump Station', sealed=True)
 
 subd['gas'] = EntrySubdivision(entry=entry['gas'], transaction=trans['gas'],
-                               amount=-2472)
+                               amount=-2472, type=types['gas'])
 
 # --------------------
 
@@ -132,7 +145,7 @@ entry['rent'] = Entry(transactionDate=jan1, postDate=jan5, sealed=True,
 trans['rent'] = Transaction(name='Rent', sealed=True)
 
 subd['rent'] = EntrySubdivision(entry=entry['rent'], transaction=trans['rent'],
-                                amount=-50000)
+                                amount=-50000, type=types['rent'])
 
 # --------------------
 
@@ -147,10 +160,10 @@ entry['pmt2'] = Entry(transactionDate=jan5, postDate=jan5, sealed=True,
 trans['pmt'] = Transaction(name='Credit Card B Payment', sealed=True)
 
 subd['pmt1'] = EntrySubdivision(entry=entry['pmt1'], transaction=trans['pmt'],
-                                amount=-10000)
+                                amount=-10000, type=types['tran'])
 
 subd['pmt2'] = EntrySubdivision(entry=entry['pmt2'], transaction=trans['pmt'],
-                                amount=+10000)
+                                amount=+10000, type=types['tran'])
 
 # --------------------
 
