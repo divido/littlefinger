@@ -7,6 +7,9 @@ from .table_base import TableBase, RegisterTable
 # --------------------------------------------------------------------------------
 
 class User(TableBase):
+    """This table keeps track of user information for logging into the system.
+    """
+
     _singular = 'user'
     _plural = 'users'
     __tablename__ = _plural
