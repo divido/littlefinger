@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sqlite3.exe -batch data.sqlite <<EOF |& sed 's/ \+$//'
+sqlite3 -batch data.sqlite <<EOF |& sed 's/ \+$//'
 .mode column
 .header on
 .null (null)
