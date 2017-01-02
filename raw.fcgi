@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+import sys
+sys.stdout = open('/tmp/littlefinger-raw-stdout.txt', 'w')
+sys.stderr = open('/tmp/littlefinger-raw-stderr.txt', 'w')
+
 from flipflop import WSGIServer
 from raw import app
 
