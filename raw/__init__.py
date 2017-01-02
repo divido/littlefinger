@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import os
+
 from eve import Eve
 
 from eve_sqlalchemy import SQL
@@ -20,7 +22,7 @@ app = Eve(__name__, validator=ValidatorSQL, data=SQL, settings={
     'RESOURCE_METHODS': ['GET', 'POST'],
     'ITEM_METHODS': ['GET', 'PATCH', 'PUT', 'DELETE'],
     'APPLICATION_ROOT': '/raw',
-    'SQLALCHEMY_DATABASE_URI': 'sqlite:///../data.sqlite',
+    'SQLALCHEMY_DATABASE_URI': os.environ['LITTLEFINGER_DATA'],
     'SQLALCHEMY_TRACK_MODIFICATIONS': False
 })
 
