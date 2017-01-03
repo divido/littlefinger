@@ -19,18 +19,18 @@ def importOfxAccounts(session):
 
 	logging.info('Importing OFX Accounts')
 	for ofxAccount in ofxConfig.accounts():
-		logging.debug('Processing: %s, %d', ofxAccount.institution.description, ofxAccount.number)
+		logging.debug('Processing: %s, %d', ofxAccount.institution.description, int(ofxAccount.number))
 
 		try:
 			account = session.query(Account).filter(
 				Account.ofxID == ofxAccount.institution.client_args['id'],
-			    Account.number == ofxAccount.number).one_or_none()
+			    Account.number == int(ofxAccount.number)).one_or_none()
 
 			if account is None:
 				account = Account()
 				account.name = ofxAccount.institution.description
 				account.kind = 'unknown'
-				account.number = ofxAccount.number
+				account.number = int(ofxAccount.number)
 				account.ofxID = ofxAccount.institution.client_args['id']
 
 				session.add(account)
@@ -52,11 +52,11 @@ def importOfxEntries(session):
 
 	logging.info('Importing OFX Entries')
 	for ofxAccount in ofxConfig.accounts():
-		logging.debug('Processing: %s, %d', ofxAccount.institution.description, ofxAccount.number)
+		logging.debug('Processing: %s, %d', ofxAccount.institution.description, int(ofxAccount.number))
 		try:
 			account = session.query(Account).filter(
 				Account.ofxID == ofxAccount.institution.client_args['id'],
-			    Account.number == ofxAccount.number).one()
+			    Account.number == int(ofxAccount.number)).one()
 			statement = ofxAccount.statement(days=60)
 			account.lastImport = datetime.now()
 
