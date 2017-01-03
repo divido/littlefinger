@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, String, Enum
+from sqlalchemy import Column, String, Text, Integer, Enum, DateTime
 
 from .table_base import TableBase, RegisterTable
 
@@ -22,7 +22,12 @@ class Account(TableBase):
 		'savings',
 		'cash',
 		'credit',
-		'friendly'
+		'friendly',
+		'unknown'
 	))
+
+	number = Column(Integer)
+	ofxID = Column(Text)
+	lastImport = Column(DateTime)
 
 RegisterTable(Account)

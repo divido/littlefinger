@@ -1,3 +1,17 @@
+# Obviously, littlefinger needs python3 & pip3
+# You can install python dependencies by using:
+#   sudo pip3 install -r requirements.txt
+
+# Other system dependencies (must install before python dependencies):
+#   libxml2-dev
+#   libxslt-dev
+#   libz-dev
+#   libffi-dev
+#   libssl-dev
+#   lighttpd
+
 Eve==0.6.4
 Eve-SQLAlchemy==0.4.1
 flipflop==1.0.0
+ofxclient=2.0.2
+secretstorage=2.3.1

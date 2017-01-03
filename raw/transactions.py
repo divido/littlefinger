@@ -28,7 +28,6 @@ class Transaction(TableBase):
 
 	name = Column(String(128))
 	description = Column(Text)
-	sealed = Column(Boolean)
 
 RegisterTable(Transaction)
 
@@ -44,11 +43,20 @@ class Entry(TableBase):
 	_plural = 'entries'
 	__tablename__ = _plural
 
+	# Basic Information
 	transactionDate = Column(DateTime)
-	postDate = Column(DateTime)
-	description = Column(Text)
+	type = Column(Text)
 	amount = Column(Integer)
-	sealed = Column(Boolean)
+	description = Column(Text)
+
+	# Extra Data
+	checkNum = Column(Integer)
+	vendorID = Column(Text)
+	memo = Column(Text)
+
+	# Categorization Data
+	sic = Column(Integer) # Standard Industrial Classification
+	mcc = Column(Integer) # Merchant Category Code
 
 MakeParentChild(Account, Entry)
 RegisterTable(Entry)
