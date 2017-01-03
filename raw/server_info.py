@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, String
-
-from .table_base import TableBase, RegisterTable
+from . import db
+from .table_base import TableBase
 
 # --------------------------------------------------------------------------------
 
@@ -14,7 +13,5 @@ class User(TableBase):
 	_plural = 'users'
 	__tablename__ = _plural
 
-	username = Column(String(32))
-	display = Column(String(32))
-
-RegisterTable(User)
+	username = db.Column(db.String(32))
+	display = db.Column(db.String(32))

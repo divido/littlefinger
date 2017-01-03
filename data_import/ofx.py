@@ -62,7 +62,7 @@ def importOfxEntries(session):
 
 			for transaction in statement.transactions:
 				entry = session.query(Entry).filter(
-					Entry.account_id == Account._id,
+					Entry.account_id == Account.id,
 					Entry.vendorID == transaction.id).one_or_none()
 
 				if entry is None:

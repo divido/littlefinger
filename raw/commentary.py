@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, Text, Enum
-
-from .table_base import TableBase, RegisterTable, MakeParentChild
+from . import db
+from .table_base import TableBase, MakeParentChild
 from .server_info import User
 from .transactions import Transaction
 
@@ -30,8 +29,8 @@ class Comment(TableBase):
 	_plural = 'comments'
 	__tablename__ = _plural
 
-	comments = Column(Text)
-	kind = Column(Enum(
+	comments = db.Column(db.Text)
+	kind = db.Column(db.Enum(
 		'text',
 		'modification',
 		'approval',
@@ -40,5 +39,3 @@ class Comment(TableBase):
 
 MakeParentChild(User, Comment)
 MakeParentChild(Transaction, Comment)
-
-RegisterTable(Comment)

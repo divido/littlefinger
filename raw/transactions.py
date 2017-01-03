@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, String, Text, Integer, Boolean, DateTime
-
-from .table_base import TableBase, RegisterTable, MakeParentChild
+from . import db
+from .table_base import TableBase, MakeParentChild
 from .accounts import Account
 from .types import Type
 
@@ -26,10 +25,8 @@ class Transaction(TableBase):
 	_plural = 'transactions'
 	__tablename__ = _plural
 
-	name = Column(String(128))
-	description = Column(Text)
-
-RegisterTable(Transaction)
+	name = db.Column(db.String(128))
+	description = db.Column(db.Text)
 
 # --------------------
 
@@ -44,22 +41,21 @@ class Entry(TableBase):
 	__tablename__ = _plural
 
 	# Basic Information
-	transactionDate = Column(DateTime)
-	type = Column(Text)
-	amount = Column(Integer)
-	description = Column(Text)
+	transactionDate = db.Column(db.DateTime)
+	type = db.Column(db.Text)
+	amount = db.Column(db.Integer)
+	description = db.Column(db.Text)
 
 	# Extra Data
-	checkNum = Column(Integer)
-	vendorID = Column(Text)
-	memo = Column(Text)
+	checkNum = db.Column(db.Integer)
+	vendorID = db.Column(db.Text)
+	memo = db.Column(db.Text)
 
 	# Categorization Data
-	sic = Column(Integer) # Standard Industrial Classification
-	mcc = Column(Integer) # Merchant Category Code
+	sic = db.Column(db.Integer) # Standard Industrial Classification
+	mcc = db.Column(db.Integer) # Merchant Category Code
 
 MakeParentChild(Account, Entry)
-RegisterTable(Entry)
 
 # --------------------
 
@@ -74,10 +70,9 @@ class EntrySubdivision(TableBase):
 	_plural = 'subdivisions'
 	__tablename__ = _plural
 
-	description = Column(Text)
-	amount = Column(Integer)
+	description = db.Column(db.Text)
+	amount = db.Column(db.Integer)
 
 MakeParentChild(Entry, EntrySubdivision)
 MakeParentChild(Transaction, EntrySubdivision)
 MakeParentChild(Type, EntrySubdivision)
-RegisterTable(EntrySubdivision)

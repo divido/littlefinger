@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, String, Text, Integer, Enum, DateTime
-
-from .table_base import TableBase, RegisterTable
+from . import db
+from .table_base import TableBase
 
 # --------------------------------------------------------------------------------
 
@@ -16,8 +15,8 @@ class Account(TableBase):
 	_plural = 'accounts'
 	__tablename__ = _plural
 
-	name = Column(String(64))
-	kind = Column(Enum(
+	name = db.Column(db.String(64))
+	kind = db.Column(db.Enum(
 		'checking',
 		'savings',
 		'cash',
@@ -26,8 +25,6 @@ class Account(TableBase):
 		'unknown'
 	))
 
-	number = Column(Integer)
-	ofxID = Column(Text)
-	lastImport = Column(DateTime)
-
-RegisterTable(Account)
+	number = db.Column(db.Integer)
+	ofxID = db.Column(db.Text)
+	lastImport = db.Column(db.DateTime)

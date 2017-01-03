@@ -10,8 +10,8 @@
 #   libssl-dev
 #   lighttpd
 
-Eve==0.6.4
-Eve-SQLAlchemy==0.4.1
+Flask==0.12
+Flask-SQLAlchemy==2.1
 flipflop==1.0.0
-ofxclient=2.0.2
-secretstorage=2.3.1
+ofxclient==2.0.2
+secretstorage==2.3.1

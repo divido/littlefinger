@@ -1,30 +1,8 @@
 #!/usr/bin/env python3
 
-from eve_sqlalchemy.decorators import registerSchema
-
-from sqlalchemy import func, ForeignKey
-from sqlalchemy import Column, String, Integer, DateTime
-from sqlalchemy.orm import relationship
-
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
-DOMAIN = {}
+from . import db
 
 # --------------------------------------------------------------------------------
-
-def RegisterTable(tableClass):
-	"""When creating SQLAlchemy models, they need to be registered with the
-	eve_sqlalchemy interface library. Additionally, add the schema to the DOMAIN
-	dictionary, which will be used later during construction of the Eve app to
-	inform it of which tables to create CRUD interfaces for.
-	"""
-
-	nm = tableClass.__tablename__
-	registerSchema(nm)(tableClass)
-	DOMAIN[nm] = tableClass._eve_schema[nm]
-
-# --------------------
 
 def MakeParentChild(parentClass, childClass):
 	"""Establishes a parent-child relationship between the two table classes
@@ -37,10 +15,10 @@ def MakeParentChild(parentClass, childClass):
 	"""
 
 	setattr(childClass, parentClass._singular + '_id',
-			Column(Integer, ForeignKey(parentClass.__tablename__ + '._id')))
+			db.Column(db.Integer, db.ForeignKey(parentClass.__tablename__ + '.id')))
 
 	setattr(parentClass, childClass._plural,
-			relationship(childClass, backref=parentClass._singular, lazy='dynamic'))
+			db.relationship(childClass, backref=parentClass._singular, lazy='dynamic'))
 
 	if not hasattr(parentClass, '_expandedFields'):
 		parentClass._expandedFields = []
@@ -49,29 +27,27 @@ def MakeParentChild(parentClass, childClass):
 
 # --------------------
 
-class TableBase(Base):
-	"""Define the base functionality for the tables, including the meta-columns
-	that are used by Eve, and the value extraction properties.
+class TableBase(db.Model):
+	"""Define the base functionality for the tables, including a simple primary
+	key and method to convert into a simple (or extended) dictionary class,
+	suitalble for JSON conversion.
 	"""
 
 	__abstract__ = True
 
-	_id = Column(Integer, primary_key=True, autoincrement=True)
-	_created = Column(DateTime, default=func.now())
-	_updated = Column(DateTime, default=func.now())
-	_etag = Column(String(40))
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
 	@property
 	def value(self):
 		"""This extracts the values of the object into a simple dictionary,
-		suitable for passing to jsonify. Values are selected based on the DOMAIN
-		schema, established during setup.
+		suitable for passing to jsonify. Values are selected based on __table__
+		object, which is created & managed by SQLAlchemy
 		"""
 
 		val = {}
 
-		for field in DOMAIN[self.__tablename__]['schema']:
-			val[field] = getattr(self, field)
+		for column in self.__table__.columns:
+			val[column.key] = getattr(self, column.key)
 
 		return val
 
