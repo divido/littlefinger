@@ -11,13 +11,7 @@ from flask import jsonify, request
 
 # --------------------------------------------------------------------------------
 
-@app.route('/accounts', methods=['GET'])
-def getAccounts():
-	"""An example API GET request demonstrating direct use of raw Database
-	classes and more complex / custom responses than Eve
-	"""
-
-	update = 'update' in request.args and request.args['update']
+def expandedAccounts(update):
 	logging.info('GET /accounts, update = %s', update)
 
 	if update:
@@ -29,6 +23,15 @@ def getAccounts():
 		except Exception as e:
 			logger.error(e)
 
-	return jsonify({
+	return {
 		'accounts': [item.expandedValue for item in db.session.query(Account).all()]
-	})
+	}
+
+@app.route('/accounts', methods=['GET'])
+def getAccounts():
+	"""An example API GET request demonstrating direct use of raw Database
+	classes and expanded values
+	"""
+
+	update = 'update' in request.args and request.args['update']
+	return jsonify(expandedAccounts(update))
