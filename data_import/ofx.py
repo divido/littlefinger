@@ -36,7 +36,7 @@ def importOfxAccounts(session):
 				session.add(account)
 
 		except Exception as e:
-			logger.error(e)
+			logging.error(e)
 			pass
 
 def importOfxEntries(session):
@@ -82,5 +82,5 @@ def importOfxEntries(session):
 				entry.account = account
 
 		except Exception as e:
-			logger.error(e)
+			logging.error(e)
 			pass
