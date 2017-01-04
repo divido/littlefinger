@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TransactionsService } from './transactions.service';
+import { TransactionsService } from './data/transactions.service';
 
 @Component({
 	selector: 'littlefinger-root',
