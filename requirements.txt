@@ -1,17 +1,25 @@
-# Obviously, littlefinger needs python3 & pip3
-# You can install python dependencies by using:
+# Package dependencies (install these first)
+#   sudo apt install python3 pip3
+#   sudo apt install lighttpd
+#   sudo apt install libxml2-dev libxslt-dev libz-dev libffi-dev libssl-dev
+
+# You can install these python dependencies by using:
 #   sudo pip3 install -r requirements.txt
-
-# Other system dependencies (must install before python dependencies):
-#   libxml2-dev
-#   libxslt-dev
-#   libz-dev
-#   libffi-dev
-#   libssl-dev
-#   lighttpd
-
 Flask==0.12
 Flask-SQLAlchemy==2.1
 flipflop==1.0.0
 ofxclient==2.0.2
 secretstorage==2.3.1
+
+# Web dependencies
+# For development, you'll need node / npm
+# I used https://github.com/nodesource/distributions to download node using:
+#   curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+#   sudo apt-get install -y nodejs
+#
+# Which installed node v7.3.0, npm 3.10.10 for me
+# Then, to get globally available 'ng' command:
+#   sudo npm install -g angular-cli
+#
+# Finally, download development dependencies:
+#   cd www && npm install
