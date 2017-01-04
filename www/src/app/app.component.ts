@@ -4,10 +4,10 @@ import { TransactionsService } from './transactions.service';
 @Component({
 	selector: 'littlefinger-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.sass']
+	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-	title = 'Littlefinger works!';
+	title = 'Littlefinger';
 	unassignedEntries: string;
 
 	constructor(private transactionsService: TransactionsService) {}

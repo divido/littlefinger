@@ -1,0 +1,172 @@
+// Started from primeng's south-side theme, modified to suit (and to be SASSy)
+
+@import "_themeColors";
+
+// Littlefinger Extensions
+body {
+	background: $page-bg;
+	color: $primary-font;
+	font-family: segoe ui, Arial, sans-serif;
+	margin: 0;
+}
+
+// Component containers
+// ----------------------------------
+.ui-widget:active {
+	outline: none;
+}
+
+//.ui-widget-content {
+//	border: 1px solid #dfd9c3;
+//	background: #f5f3e5;
+//	color: #312e25;
+//
+//	a {
+//		color: #312e25;
+//	}
+//}
+
+.ui-widget-header {
+	border: 1px solid darken($header-bg, 20%);
+	background: $header-bg;
+	color: $inverted-font;
+	font-weight: bold;
+
+//	a {
+//		color: #433f38;
+//	}
+}
+
+// Interaction states
+// ----------------------------------
+.ui-state-default {
+	border: 1px solid darken($button-bg, 20%);
+	background: $button-bg;
+	color: $inverted-font;
+
+	a {
+		color: $inverted-font;
+		text-decoration: none;
+	}
+}
+
+.ui-state-hover, .ui-state-focus {
+	background-color: lighten($button-bg, 5%);
+}
+
+//.ui-state-active {
+//	border: 1px solid #d4ccb0;
+//	background: #fafaf4;
+//	color: #459e00;
+//
+//	a {
+//		color: #459e00;
+//		text-decoration: none;
+//
+//		&:link, &:visited {
+//			color: #459e00;
+//			text-decoration: none;
+//		}
+//	}
+//}
+
+// Interaction Cues
+// ----------------------------------
+//.ui-state-highlight {
+//	border: 1px solid #327e04;
+//	background: #67b021;
+//	color: #ffffff;
+//
+//	a {
+//		color: #ffffff;
+//	}
+//}
+
+//.ui-state-error {
+//	border: 1px solid #e3a345;
+//	background: #ffedad;
+//	color: #cd5c0a;
+//
+//	a {
+//		color: #cd5c0a;
+//	}
+//}
+
+//.ui-priority-primary {
+//	font-weight: bold;
+//}
+
+//.ui-priority-secondary {
+//	opacity: 0.7;
+//	font-weight: normal;
+//}
+
+//.ui-state-disabled {
+//	opacity: 0.35;
+//	background-image: none;
+//}
+
+// Misc visuals
+// ----------------------------------
+
+// Corner radius
+$radius-amount: 3px;
+
+.ui-corner-tl, .ui-corner-top, .ui-corner-left {
+	border-top-left-radius: $radius-amount;
+}
+
+.ui-corner-tr, .ui-corner-top, .ui-corner-right {
+	border-top-right-radius: $radius-amount;
+}
+
+.ui-corner-bl, .ui-corner-bottom, .ui-corner-left {
+	border-bottom-left-radius: $radius-amount;
+}
+
+.ui-corner-br, .ui-corner-bottom, .ui-corner-right {
+	border-bottom-right-radius: $radius-amount;
+}
+
+.ui-corner-all {
+	border-radius: $radius-amount;
+}
+
+// Overlays
+//.ui-widget-overlay {
+//	opacity: 0.9;
+//}
+
+//.ui-widget-shadow {
+//	margin: (-12px) 0 0 -12px;
+//	padding: 12px;
+//	opacity: 0.2;
+//	border-radius: 10px;
+//}
+
+// PrimeFaces Extensions
+//.ui-inputtext {
+//	background: #ffffff;
+//	color: #433f38;
+//
+//	&.ui-state-focus {
+//		box-shadow: 0px 0px 5px #327e04;
+//	}
+//}
+
+// Validation
+//.ui-inputtext.ng-dirty.ng-invalid,
+//p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
+//p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
+//p-calendar.ng-dirty.ng-invalid > .ui-inputtext,
+//p-inputmask.ng-dirty.ng-invalid > .ui-inputtext,
+//p-checkbox.ng-dirty.ng-invalid .ui-chkbox-box,
+//p-radiobutton.ng-dirty.ng-invalid .ui-radiobutton-box,
+//p-inputswitch.ng-dirty.ng-invalid .ui-inputswitch,
+//p-listbox.ng-dirty.ng-invalid .ui-inputtext,
+//p-multiselect.ng-dirty.ng-invalid > .ui-multiselect,
+//p-spinner.ng-dirty.ng-invalid > .ui-inputtext,
+//p-selectbutton.ng-dirty.ng-invalid .ui-button,
+//p-togglebutton.ng-dirty.ng-invalid .ui-button {
+//	border-bottom-color: #e3a345;
+//}

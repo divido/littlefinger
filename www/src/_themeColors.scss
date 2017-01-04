@@ -1,0 +1,9 @@
+// Some basic theme color variables
+
+$page-bg:       hsl(80,  80%, 80%);
+$text-entry-bg: hsl(100, 20%, 90%);
+$button-bg:     hsl(100, 60%, 40%);
+$header-bg:     hsl(100, 60%, 30%);
+
+$primary-font:  black;
+$inverted-font: lighten($page-bg, 10%);
