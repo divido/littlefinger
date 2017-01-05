@@ -18,6 +18,15 @@ body {
 	color: $debit-font;
 }
 
+// PrimeNG UI overrides
+.ui-messages {
+	display: flex !important;
+
+	.ui-messages-icon {
+		flex: none;
+	}
+}
+
 // Component containers
 // ----------------------------------
 .ui-widget:active {

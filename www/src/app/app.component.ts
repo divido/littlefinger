@@ -9,7 +9,9 @@ import { UnassignedEntry } from './data/types';
 })
 export class AppComponent implements OnInit {
 	title = 'Littlefinger';
+
 	unassignedEntries: UnassignedEntry[];
+	unassignedMessages: any[] = [];
 
 	constructor(private transactionsService: TransactionsService) {}
 
@@ -17,11 +19,16 @@ export class AppComponent implements OnInit {
 
 		this.transactionsService.getUnassignedEntries().then(
 			entries => {
+				this.unassignedMessages = [];
 				this.unassignedEntries = entries.sort(
 					(a, b) => b.entry.transactionDate.valueOf() - a.entry.transactionDate.valueOf());
 			}
 		).catch(
-			error => false
+			error => this.unassignedMessages.push({
+				severity: 'error',
+				summary: 'Could not retrieve unassigned entries',
+				detail: error
+			})
 		);
 	}
 }

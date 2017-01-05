@@ -5,4 +5,5 @@
 	<h3>Unassigned Entries:</h3>
 	<lf-unassigned-entry-card *ngFor="let e of unassignedEntries" [entry]="e">
 	</lf-unassigned-entry-card>
+	<p-messages [value]="unassignedMessages" [closable]="true"></p-messages>
 </div>

@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { TransactionsService } from './data/transactions.service';
 import { UnassignedEntryCardComponent } from './unassigned-entry-card/unassigned-entry-card.component';
 
+import { MessagesModule } from 'primeng/primeng';
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -15,7 +17,8 @@ import { UnassignedEntryCardComponent } from './unassigned-entry-card/unassigned
 	imports: [
 		BrowserModule,
 		FormsModule,
-		HttpModule
+		HttpModule,
+		MessagesModule
 	],
 	providers: [
 		TransactionsService
