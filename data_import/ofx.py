@@ -3,12 +3,35 @@
 import os, logging
 
 from datetime import datetime
+from dateutil import parser
 from ofxclient.config import OfxConfig
 
 from raw import Account, Entry
 
 ofxConfig = OfxConfig(file_name=os.environ['LITTLEFINGER_OFX'])
 logging.info('Using OFX Config file: %s', os.environ['LITTLEFINGER_OFX'])
+
+def parseToDate(value):
+	try:
+		if isinstance(value, datetime):
+			return value;
+
+		return parser.parse(value)
+
+	except Exception as e:
+		logging.warning("Could not parse value (%s) a valid date: %s", value, e)
+		return None
+
+def parseToInt(value):
+	try:
+		if value is None or value == "":
+			return None
+
+		return int(value)
+
+	except Exception as e:
+		logging.warning("Could not parse value (%s) as valid integer: %s", value, e)
+		return None
 
 def importOfxAccounts(session):
 	"""This adds accounts to the primary database if they are present in the OFX
@@ -19,18 +42,18 @@ def importOfxAccounts(session):
 
 	logging.info('Importing OFX Accounts')
 	for ofxAccount in ofxConfig.accounts():
-		logging.debug('Processing: %s, %d', ofxAccount.institution.description, int(ofxAccount.number))
+		logging.debug('Processing: %s, %d', ofxAccount.institution.description, parseToInt(ofxAccount.number))
 
 		try:
 			account = session.query(Account).filter(
 				Account.ofxID == ofxAccount.institution.client_args['id'],
-			    Account.number == int(ofxAccount.number)).one_or_none()
+			    Account.number == parseToInt(ofxAccount.number)).one_or_none()
 
 			if account is None:
 				account = Account()
 				account.name = ofxAccount.institution.description
 				account.kind = 'unknown'
-				account.number = int(ofxAccount.number)
+				account.number = parseToInt(ofxAccount.number)
 				account.ofxID = ofxAccount.institution.client_args['id']
 
 				session.add(account)
@@ -52,11 +75,11 @@ def importOfxEntries(session):
 
 	logging.info('Importing OFX Entries')
 	for ofxAccount in ofxConfig.accounts():
-		logging.debug('Processing: %s, %d', ofxAccount.institution.description, int(ofxAccount.number))
+		logging.debug('Processing: %s, %d', ofxAccount.institution.description, parseToInt(ofxAccount.number))
 		try:
 			account = session.query(Account).filter(
 				Account.ofxID == ofxAccount.institution.client_args['id'],
-			    Account.number == int(ofxAccount.number)).one()
+			    Account.number == parseToInt(ofxAccount.number)).one()
 			statement = ofxAccount.statement(days=60)
 			account.lastImport = datetime.now()
 
@@ -70,14 +93,14 @@ def importOfxEntries(session):
 					entry.vendorID = transaction.id
 					session.add(entry)
 
-				entry.transactionDate = transaction.date
+				entry.transactionDate = parseToDate(transaction.date)
 				entry.type = transaction.type
-				entry.amount = int(transaction.amount * 100)
+				entry.amount = parseToInt(transaction.amount * 100)
 				entry.description = transaction.payee
-				entry.checkNum = transaction.checknum
+				entry.checkNum = parseToInt(transaction.checknum)
 				entry.memo = transaction.memo
-				entry.sic = transaction.sic
-				entry.mcc = transaction.mcc
+				entry.sic = parseToInt(transaction.sic)
+				entry.mcc = parseToInt(transaction.mcc)
 
 				entry.account = account
 
