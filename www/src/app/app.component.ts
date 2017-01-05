@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TransactionsService, UnassignedEntry } from './data/transactions.service';
+import { TransactionsService } from './data/transactions.service';
+import { UnassignedEntry } from './data/types';
 
 @Component({
 	selector: 'lf-root',

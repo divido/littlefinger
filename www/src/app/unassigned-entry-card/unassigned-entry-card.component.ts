@@ -1,7 +1,7 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 
-import { UnassignedEntry } from '../data/transactions.service';
+import { UnassignedEntry } from '../data/types';
 
 @Component({
 	selector: 'lf-unassigned-entry-card',
