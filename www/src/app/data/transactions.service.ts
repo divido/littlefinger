@@ -34,7 +34,7 @@ export class TransactionsService {
 		return this.http.get('/api/unassigned-entries')
 			.toPromise()
 			.then(response => {
-				return response.json() as Entry[];
+				return response.json() as UnassignedEntry[];
 			});
 	}
 }

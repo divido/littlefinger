@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TransactionsService } from './data/transactions.service';
+import { TransactionsService, UnassignedEntry } from './data/transactions.service';
 
 @Component({
 	selector: 'lf-root',
@@ -8,15 +8,16 @@ import { TransactionsService } from './data/transactions.service';
 })
 export class AppComponent implements OnInit {
 	title = 'Littlefinger';
-	unassignedEntries: string;
+	unassignedEntries: UnassignedEntry[];
 
 	constructor(private transactionsService: TransactionsService) {}
 
 	ngOnInit(): void {
+
 		this.transactionsService.getUnassignedEntries().then(
-			entries => this.unassignedEntries = JSON.stringify(entries, null, 2)
+			entries => this.unassignedEntries = entries
 		).catch(
-			error => this.unassignedEntries = error
+			error => false
 		);
 	}
 }

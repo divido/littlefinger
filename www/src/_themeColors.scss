@@ -1,9 +1,15 @@
 // Some basic theme color variables
 
 $page-bg:       hsl(80,  80%, 80%);
-$text-entry-bg: hsl(100, 20%, 90%);
+$text-entry-bg: hsl(80,  80%, 90%);
 $button-bg:     hsl(100, 60%, 40%);
 $header-bg:     hsl(100, 60%, 30%);
 
 $primary-font:  black;
+$muted-font:    hsl(0, 0%, 30%);
 $inverted-font: lighten($page-bg, 10%);
+
+$credit-font:   hsl(100, 60%, 30%);
+$debit-font:    hsl(0,   60%, 30%);
+
+$card-shadow:   black;

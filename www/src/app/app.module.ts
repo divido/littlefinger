@@ -5,10 +5,12 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { TransactionsService } from './data/transactions.service';
+import { UnassignedEntryCardComponent } from './unassigned-entry-card/unassigned-entry-card.component';
 
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+		UnassignedEntryCardComponent
 	],
 	imports: [
 		BrowserModule,

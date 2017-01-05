@@ -1,6 +1,6 @@
 // Started from primeng's south-side theme, modified to suit (and to be SASSy)
 
-@import "_themeColors";
+@import "themeColors";
 
 // Littlefinger Extensions
 body {
@@ -8,6 +8,14 @@ body {
 	color: $primary-font;
 	font-family: segoe ui, Arial, sans-serif;
 	margin: 0;
+}
+
+.credit {
+	color: $credit-font;
+}
+
+.debit {
+	color: $debit-font;
 }
 
 // Component containers
@@ -72,15 +80,15 @@ body {
 
 // Interaction Cues
 // ----------------------------------
-//.ui-state-highlight {
-//	border: 1px solid #327e04;
-//	background: #67b021;
-//	color: #ffffff;
-//
-//	a {
-//		color: #ffffff;
-//	}
-//}
+.ui-state-highlight {
+	border: 1px solid darken($button-bg, 20%);
+	background: $button-bg;
+	color: $inverted-font;
+
+	a {
+		color: $inverted-font;
+	}
+}
 
 //.ui-state-error {
 //	border: 1px solid #e3a345;

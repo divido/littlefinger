@@ -1,0 +1,50 @@
+@import '../../themeColors';
+
+.unassigned-entry-card {
+	background: $text-entry-bg;
+	margin: 0.25em 0;
+	padding: 0.25em;
+	display: flex;
+	box-shadow: 0 0 1px $card-shadow;
+
+	.dateBox {
+		flex: none;
+		width: 8em;
+		margin-right: 0.5em;
+
+		color: $muted-font;
+
+		.dayOfWeek {
+			font-weight: bold;
+			text-align: center;
+			font-size: 1.5em;
+			width: 2em;
+			margin-right: 0.25em;
+			float: left;
+		}
+
+		.calendarDate, .account {
+			text-align: right;
+			font-size: 0.75em;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	}
+
+	.description {
+		flex: auto;
+	}
+
+	.checkNum {
+		flex: none;
+		height: 1.15em;
+		margin-right: 0.5em;
+	}
+
+	.amount {
+		flex: none;
+		font-size: 1.25em;
+		font-weight: bold;
+	}
+}

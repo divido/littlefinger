@@ -1,6 +1,8 @@
 <div class="main-titlebar ui-widget-header">
 {{title}}
 </div>
-
-<h3>Unassigned Entries:</h3>
-<div class="unassigned-entries">{{unassignedEntries}}</div>
+<div class="content-area">
+	<h3>Unassigned Entries:</h3>
+	<lf-unassigned-entry-card *ngFor="let e of unassignedEntries" [entry]="e">
+	</lf-unassigned-entry-card>
+</div>
