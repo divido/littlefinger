@@ -1,30 +1,57 @@
 
+export class Account {
+	id: number;
+	name: string;
+	kind: string;
+	accountNumber: number;
+
+	lastImport: Date;
+	ofxID: string;
+
+	constructor(serviceJson) {
+		this.id = serviceJson.id;
+		this.name = serviceJson.name;
+		this.kind = serviceJson.kind;
+		this.accountNumber = serviceJson.number;
+		this.lastImport = new Date(serviceJson.lastImport);
+		this.ofxID = serviceJson.ofxID;
+	}
+};
+
 export class Subdivision {
 };
 
 export class Entry {
+	id: number;
 	account_id: number;
-	amount: number;
-	checkNum: number;
-	description: string;
-	mcc: number;
-	memo: string;
-	sic: number;
-	transactionDate: Date;
-	type: string;
 	vendorID: string;
 
+	amount: number;
+	transactionDate: Date;
+
+	checkNum: number;
+	description: string;
+	memo: string;
+
+	type: string;
+	mcc: number;
+	sic: number;
+
 	constructor(serviceJson) {
+		this.id = serviceJson.id;
 		this.account_id = serviceJson.account_id;
+		this.vendorID = serviceJson.vendorID;
+
 		this.amount = serviceJson.amount;
+		this.transactionDate = new Date(serviceJson.transactionDate);
+
 		this.checkNum = serviceJson.checkNum;
 		this.description = serviceJson.description;
-		this.mcc = serviceJson.mcc;
 		this.memo = serviceJson.memo;
-		this.sic = serviceJson.sic;
-		this.transactionDate = new Date(serviceJson.transactionDate);
+
 		this.type = serviceJson.type;
-		this.vendorID = serviceJson.vendorID;
+		this.mcc = serviceJson.mcc;
+		this.sic = serviceJson.sic;
 	}
 };
 

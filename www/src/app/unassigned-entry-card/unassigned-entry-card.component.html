@@ -1,21 +1,21 @@
 <div class="unassigned-entry-card">
 	<div class="dateBox">
 		<span class="dayOfWeek">
-			{{entry.entry.transactionDate | date:'EEE'}}
+			{{unassigned.entry.transactionDate | date:'EEE'}}
 		</span>
 		<div class="calendarDate">
-			{{entry.entry.transactionDate | date:'MMM d, y'}}
+			{{unassigned.entry.transactionDate | date:'MMM d, y'}}
 		</div>
 		<div class="account">
-			Account #{{entry.entry.account_id}}
+			{{accountName}}
 		</div>
 	</div>
 
-	<div *ngIf="entry.entry.checkNum" class="checkNum ui-chips-token ui-state-highlight ui-corner-all">
-		# {{entry.entry.checkNum}}
+	<div *ngIf="unassigned.entry.checkNum" class="checkNum ui-chips-token ui-state-highlight ui-corner-all">
+		# {{unassigned.entry.checkNum}}
 	</div>
-	<div class="description">{{entry.entry.description}}</div>
-	<div [ngClass]="{'amount': true, 'credit': entry.entry.amount >= 0, 'debit': entry.entry.amount < 0}">
-		{{entry.entry.amount / 100 | currency:'USD':true:'1.2-2'}}
+	<div class="description">{{unassigned.entry.description}}</div>
+	<div [ngClass]="{'amount': true, 'credit': unassigned.entry.amount >= 0, 'debit': unassigned.entry.amount < 0}">
+		{{unassigned.entry.amount / 100 | currency:'USD':true:'1.2-2'}}
 	</div>
 </div>

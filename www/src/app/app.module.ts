@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
-import { TransactionsService } from './data/transactions.service';
-import { UnassignedEntryCardComponent } from './unassigned-entry-card/unassigned-entry-card.component';
-
 import { MessagesModule } from 'primeng/primeng';
+
+import { AccountsService } from './data/accounts.service';
+import { TransactionsService } from './data/transactions.service';
+
+import { AppComponent } from './app.component';
+import { UnassignedEntryCardComponent } from './unassigned-entry-card/unassigned-entry-card.component';
 
 @NgModule({
 	declarations: [
@@ -21,6 +23,7 @@ import { MessagesModule } from 'primeng/primeng';
 		MessagesModule
 	],
 	providers: [
+		AccountsService,
 		TransactionsService
 	],
 	bootstrap: [AppComponent]

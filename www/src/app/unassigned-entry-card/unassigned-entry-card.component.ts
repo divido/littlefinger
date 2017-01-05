@@ -1,7 +1,7 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 
-import { UnassignedEntry } from '../data/types';
+import { Account, UnassignedEntry } from '../data/types';
 
 @Component({
 	selector: 'lf-unassigned-entry-card',
@@ -10,10 +10,20 @@ import { UnassignedEntry } from '../data/types';
 })
 export class UnassignedEntryCardComponent implements OnInit {
 	@Input()
-	entry: UnassignedEntry;
+	unassigned: UnassignedEntry;
+
+	@Input()
+	accounts: Account[];
+
+	accountName: string;
 
 	constructor() {}
 
 	ngOnInit() {
+		this.accounts.forEach(account => {
+			if (account.id === this.unassigned.entry.account_id) {
+				this.accountName = account.name;
+			}
+		});
 	}
 }
