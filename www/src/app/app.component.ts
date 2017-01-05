@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TransactionsService } from './data/transactions.service';
 
 @Component({
-	selector: 'littlefinger-root',
+	selector: 'lf-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
