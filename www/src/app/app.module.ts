@@ -10,11 +10,13 @@ import { TransactionsService } from './data/transactions.service';
 
 import { AppComponent } from './app.component';
 import { UnassignedEntryCardComponent } from './unassigned-entry-card/unassigned-entry-card.component';
+import { TransactionCardComponent } from './transaction-card/transaction-card.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		UnassignedEntryCardComponent
+		UnassignedEntryCardComponent,
+		TransactionCardComponent
 	],
 	imports: [
 		BrowserModule,

@@ -73,3 +73,11 @@ export class UnassignedEntry {
 		this.remainingAmount = serviceJson.remainingAmount;
 	}
 };
+
+export class Transaction {
+	id: number;
+
+	constructor(serviceJson) {
+		this.id = serviceJson.id;
+	}
+};

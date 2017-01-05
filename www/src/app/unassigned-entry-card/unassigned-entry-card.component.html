@@ -1,4 +1,4 @@
-<div class="unassigned-entry-card">
+<div class="unassigned-entry-card" (click)="container.transitionToTransaction(unassigned)">
 	<div class="dateBox">
 		<span class="dayOfWeek">
 			{{unassigned.entry.transactionDate | date:'EEE'}}

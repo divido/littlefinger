@@ -3,7 +3,19 @@
 </div>
 <div class="content-area">
 	<h3>Unassigned Entries:</h3>
-	<lf-unassigned-entry-card *ngFor="let e of unassignedEntries" [unassigned]="e" [accounts]="accounts">
-	</lf-unassigned-entry-card>
+
+	<div *ngFor="let entry of unassignedEntries">
+		<lf-unassigned-entry-card
+		    *ngIf="isUnassignedEntry(entry)"
+		    [unassigned]="entry"
+		    [accounts]="accounts"
+		    [container]="this">
+		</lf-unassigned-entry-card>
+
+		<lf-transaction-card
+		    *ngIf="isTransaction(entry)">
+		</lf-transaction-card>
+	</div>
+
 	<p-messages [value]="unassignedMessages" [closable]="true"></p-messages>
 </div>

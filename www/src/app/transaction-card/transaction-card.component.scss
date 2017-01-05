@@ -1,0 +1,9 @@
+@import '../../themeColors';
+
+.transaction-entry-card {
+	background: $text-entry-bg;
+	margin: 0.25em 0;
+	padding: 0.25em;
+	display: flex;
+	box-shadow: 0 0 1px $card-shadow;
+}

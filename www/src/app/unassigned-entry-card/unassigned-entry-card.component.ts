@@ -1,6 +1,6 @@
-
 import { Component, Input, OnInit } from '@angular/core';
 
+import { AppComponent } from '../app.component';
 import { Account, UnassignedEntry } from '../data/types';
 
 @Component({
@@ -15,11 +15,14 @@ export class UnassignedEntryCardComponent implements OnInit {
 	@Input()
 	accounts: Account[];
 
+	@Input()
+	container: AppComponent;
+
 	accountName: string;
 
 	constructor() {}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.accounts.forEach(account => {
 			if (account.id === this.unassigned.entry.account_id) {
 				this.accountName = account.name;
