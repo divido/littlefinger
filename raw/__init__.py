@@ -22,7 +22,7 @@ from .commentary import *
 
 # --------------------------------------------------------------------------------
 
-@app.route('/create-db', methods=['GET'])
+@app.route('/create-db', methods=['POST'])
 def buildDatabase():
 	try:
 		db.drop_all()
