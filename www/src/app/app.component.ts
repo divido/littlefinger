@@ -16,7 +16,10 @@ export class AppComponent implements OnInit {
 	ngOnInit(): void {
 
 		this.transactionsService.getUnassignedEntries().then(
-			entries => this.unassignedEntries = entries
+			entries => {
+				this.unassignedEntries = entries.sort(
+					(a, b) => b.entry.transactionDate.valueOf() - a.entry.transactionDate.valueOf());
+			}
 		).catch(
 			error => false
 		);
