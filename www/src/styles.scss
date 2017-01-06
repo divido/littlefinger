@@ -27,6 +27,22 @@ body {
 	}
 }
 
+.ui-inplace-display {
+	padding: 0 !important;
+}
+
+.ui-inplace-content {
+	display: flex !important;
+
+	> span {
+		flex: auto;
+
+		input {
+			width: 100%;
+		}
+	}
+}
+
 // Component containers
 // ----------------------------------
 .ui-widget:active {
@@ -162,14 +178,14 @@ $radius-amount: 3px;
 //}
 
 // PrimeFaces Extensions
-//.ui-inputtext {
-//	background: #ffffff;
-//	color: #433f38;
-//
-//	&.ui-state-focus {
-//		box-shadow: 0px 0px 5px #327e04;
-//	}
-//}
+.ui-inputtext {
+	background: $text-entry-bg;
+	color: $primary-font;
+
+	&.ui-state-focus {
+		box-shadow: 0 0 5px $soft-accent;
+	}
+}
 
 // Validation
 //.ui-inputtext.ng-dirty.ng-invalid,

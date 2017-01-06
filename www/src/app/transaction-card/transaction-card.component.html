@@ -1,3 +1,69 @@
 <div class="transaction-entry-card">
-	It's a transaction!
+	<div class="date-box">
+		<div *ngFor="let dt of dates" class="date">{{dt | date:'MMM d, y'}}</div>
+	</div>
+
+	<div class="main-box">
+		<div class="summary-box">
+			<div class="description-box">
+				<p-inplace closable="true">
+					<div pInplaceDisplay class="editable name">{{ transaction.name }}</div>
+					<span pInplaceContent>
+						<input type="text" pInputText [(ngModel)]="transaction.name">
+					</span>
+				</p-inplace>
+
+				<p-inplace closable="true">
+					<div pInplaceDisplay class="editable description">{{ transaction.description }}</div>
+					<span pInplaceContent>
+						<p-editor [(ngModel)]="transaction.description"></p-editor>
+					</span>
+				</p-inplace>
+			</div>
+			<div class="total-amount" [ngClass]="{'credit': totalAmount >= 0, 'debit': totalAmount < 0 }">
+				{{ totalAmount / 100 | currency:'USD':true:'1.2-2' }}
+			</div>
+		</div>
+
+		<table *ngFor="let group of subdivisionGroups" class="subdivisions">
+			<tbody class="entry-group">
+				<tr>
+					<td class="entry" colspan="3">{{ group.entry.description }}</td>
+					<td class="account">{{ group.account.name }}</td>
+				</tr>
+				<tr *ngFor="let subdivision of group.subdivisions">
+					<td>
+						<p-inplace closable="true">
+							<span pInplaceDisplay class="editable entry-description">
+								{{ subdivision.data.description }}
+							</span>
+							<span pInplaceContent>
+								<input type="text" pInputText [(ngModel)]="subdivision.data.description">
+							</span>
+						</p-inplace>
+					</td>
+					<td>
+						<p-inplace closable="true">
+							<span pInplaceDisplay class="editable entry-type">
+								{{ subdivision.type.name }}
+							</span>
+							<span pInplaceContent>
+								<input type="text" pInputText [(ngModel)]="subdivision.type.name">
+							</span>
+						</p-inplace>
+					</td>
+					<td class="spacer"></td>
+					<td class="editable entry-amount" [ngClass]="{'credit': subdivision.data.amount >= 0, 'debit': subdivision.data.amount < 0 }">
+						{{ subdivision.data.amount / 100 | currency:'USD':true:'1.2-2' }}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="actions">
+			<button pButton type="button" label="Approve"></button>
+			<button pButton type="button" label="Save"></button>
+			<button pButton type="button" label="Revert"></button>
+		</div>
+	</div>
 </div>

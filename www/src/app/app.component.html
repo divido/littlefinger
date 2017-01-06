@@ -2,20 +2,11 @@
 {{title}}
 </div>
 <div class="content-area">
-	<h3>Unassigned Entries:</h3>
+	<h3>Unapproved Transactions</h3>
 
-	<div *ngFor="let entry of unassignedEntries">
-		<lf-unassigned-entry-card
-		    *ngIf="isUnassignedEntry(entry)"
-		    [unassigned]="entry"
-		    [accounts]="accounts"
-		    [container]="this">
-		</lf-unassigned-entry-card>
-
-		<lf-transaction-card
-		    *ngIf="isTransaction(entry)">
-		</lf-transaction-card>
+	<div *ngFor="let transaction of unapproved">
+		<lf-transaction-card [transaction]="transaction"></lf-transaction-card>
 	</div>
 
-	<p-messages [value]="unassignedMessages" [closable]="true"></p-messages>
+	<p-messages [value]="unapprovedMessages" closable="true"></p-messages>
 </div>

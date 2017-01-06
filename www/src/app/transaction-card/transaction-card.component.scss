@@ -6,4 +6,80 @@
 	padding: 0.25em;
 	display: flex;
 	box-shadow: 0 0 1px $card-shadow;
+	max-width: 35em;
+
+	.date-box {
+		flex: none;
+		width: 7em;
+		margin-right: 0.5em;
+		font-size: 0.75em;
+
+		color: $muted-font;
+	}
+
+	.main-box {
+		flex: auto;
+
+		.editable:hover {
+			background: $green-tint;
+		}
+
+		.summary-box {
+			display: flex;
+
+			.description-box {
+				flex: auto;
+
+				.name {
+					font-weight: bold;
+				}
+
+				.description {
+					font-size: 0.75em;
+				}
+
+				.description:empty::after {
+					content: "Click to add a description";
+					font-style: italic;
+					color: $muted-font;
+				}
+			}
+
+			.total-amount {
+				flex: none;
+				font-size: 1.25em;
+				font-weight: bold;
+			}
+		}
+
+		.subdivisions {
+			width: 100%;
+			font-size: 0.75em;
+			border-collapse: collapse;
+
+			.entry-group {
+				.entry, .account {
+					padding-top: 0.5em;
+					color: $muted-font;
+					border-bottom: 1px solid $muted-font;
+				}
+
+				.account, .entry-amount {
+					text-align: right;
+				}
+
+				.entry-description, .entry-type, .entry-amount {
+					width: 0;
+				}
+
+				.entry-description, .entry-type {
+					padding-right: 0.5em;
+				}
+
+				.entry-type, .entry-amount {
+					padding-left: 0.5em;
+				}
+			}
+		}
+	}
 }

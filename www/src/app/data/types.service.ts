@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
-import { Account } from './types';
+import { Type } from './types';
 
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class AccountsService {
-	cache: Promise<Account[]>;
+export class TypesService {
+	cache: Promise<Type[]>;
 
 	constructor(private http: Http) {}
 
-	getAccounts(): Promise<Account[]> {
+	getTypes(): Promise<Type[]> {
 		if (! this.cache) {
-			this.cache = this.http.get('/api/accounts')
+			this.cache = this.http.get('/api/types')
 				.toPromise()
 				.then(response => response.json().map(
-					serviceJson => new Account(serviceJson)));
+					serviceJson => new Type(serviceJson)));
 		}
 
 		return this.cache;

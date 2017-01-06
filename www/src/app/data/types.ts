@@ -18,8 +18,51 @@ export class Account {
 	}
 };
 
-export class Subdivision {
+export interface AccountMap {
+	[id: number]: Account;
 };
+
+// --------------------------------------------------------------------------------
+
+export class Type {
+	id: number;
+	name: string;
+	description: string;
+
+	constructor(serviceJson) {
+		this.id = serviceJson.id;
+		this.name = serviceJson.name;
+		this.description = serviceJson.description;
+	}
+};
+
+export interface TypeMap {
+	[id: number]: Type;
+};
+
+// --------------------------------------------------------------------------------
+
+export class Subdivision {
+	id: number;
+	description: string;
+	amount: number;
+
+	entry_id: number;
+	transaction_id: number;
+	type_id: number;
+
+	constructor(serviceJson) {
+		this.id = serviceJson.id;
+		this.description = serviceJson.description;
+		this.amount = serviceJson.amount;
+
+		this.entry_id = serviceJson.entry_id;
+		this.transaction_id = serviceJson.transaction_id;
+		this.type_id = serviceJson.type_id;
+	}
+};
+
+// --------------------------------------------------------------------------------
 
 export class Entry {
 	id: number;
@@ -60,24 +103,37 @@ export class ExpandedEntry extends Entry {
 
 	constructor(serviceJson) {
 		super(serviceJson);
-		this.subdivisions = [];
+		this.subdivisions = serviceJson.subdivisions.map(subdiv => new Subdivision(subdiv));
 	}
 };
 
-export class UnassignedEntry {
-	entry: ExpandedEntry;
-	remainingAmount: number;
-
-	constructor(serviceJson) {
-		this.entry = new ExpandedEntry(serviceJson.entry);
-		this.remainingAmount = serviceJson.remainingAmount;
-	}
+export interface EntryMap {
+	[id: number]: Entry;
 };
+
+// --------------------------------------------------------------------------------
 
 export class Transaction {
 	id: number;
+	name: string;
+	description: string;
 
 	constructor(serviceJson) {
 		this.id = serviceJson.id;
+		this.name = serviceJson.name;
+		this.description = serviceJson.description;
 	}
+};
+
+export class ExpandedTransaction extends Transaction {
+	subdivisions: Subdivision[];
+
+	constructor(serviceJson) {
+		super(serviceJson);
+		this.subdivisions = serviceJson.subdivisions.map(subdiv => new Subdivision(subdiv));
+	}
+};
+
+export interface ExpandedTransactionMap {
+	[id: number]: ExpandedTransaction;
 };

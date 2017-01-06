@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
-import { UnassignedEntry } from './types';
+import { ExpandedTransaction } from './types';
 
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TransactionsService {
+	cache: Promise<ExpandedTransaction[]>;
 
 	constructor(private http: Http) {}
 
-	getUnassignedEntries(): Promise<UnassignedEntry[]> {
-		return this.http.get('/api/unassigned-entries')
-			.toPromise()
-			.then(
-				response => response.json().map(
-					serviceJson => new UnassignedEntry(serviceJson)
-				)
-			);
+	getUnapprovedTransactions(): Promise<ExpandedTransaction[]> {
+		if (! this.cache) {
+			this.cache = this.http.get('/api/transactions/unapproved')
+				.toPromise()
+				.then(response => response.json().map(
+					serviceJson => new ExpandedTransaction(serviceJson)));
+		}
+
+		return this.cache;
 	}
 }
