@@ -27,6 +27,10 @@ def postUpdate():
 	updateAccounts()
 	return make_response("", 204)
 
+@app.route('/types', methods=['GET'])
+def getTypes():
+	return jsonify(types())
+
 @app.route('/transactions/unapproved', methods=['GET'])
 def getUnapprovedTransactions():
 	return jsonify(unapprovedTransactions())
