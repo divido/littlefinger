@@ -2,11 +2,7 @@
 
 import logging
 
-from . import app
 from raw import db, Transaction
-
-from flask import jsonify
-from flask.json import dumps
 
 # --------------------------------------------------------------------------------
 
@@ -23,7 +19,3 @@ def unapprovedTransactions():
 		unapproved.append(transaction.expandedValue)
 
 	return unapproved
-
-@app.route('/transactions/unapproved', methods=['GET'])
-def getUnapprovedTransactions():
-	return jsonify(unapprovedTransactions())

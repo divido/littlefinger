@@ -21,15 +21,3 @@ from .transactions import *
 from .commentary import *
 
 from .grafting import *
-
-# --------------------------------------------------------------------------------
-
-@app.route('/create-db', methods=['POST'])
-def buildDatabase():
-	try:
-		db.drop_all()
-	except:
-		pass
-
-	db.create_all()
-	return make_response("", 204)

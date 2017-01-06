@@ -12,3 +12,5 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 from .accounts import *
 from .transactions import *
+
+from .endpoints import *
