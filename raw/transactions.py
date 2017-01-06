@@ -25,7 +25,7 @@ class Transaction(TableBase):
 	_plural = 'transactions'
 	__tablename__ = _plural
 
-	name = db.Column(db.String(128))
+	name = db.Column(db.Text)
 	description = db.Column(db.Text)
 
 # --------------------
