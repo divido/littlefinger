@@ -11,6 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['LITTLEFINGER_DATA']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 from .accounts import *
+from .entries import *
 from .transactions import *
 from .types import *
 

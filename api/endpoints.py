@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-from . import app, db
-from .accounts import *
-from .transactions import *
+from . import *
 
 from flask import jsonify, make_response
 
@@ -26,6 +24,10 @@ def getAccounts():
 def postUpdate():
 	updateAccounts()
 	return make_response("", 204)
+
+@app.route('/entries', methods=['GET'])
+def getEntries():
+	return jsonify(entries())
 
 @app.route('/types', methods=['GET'])
 def getTypes():
