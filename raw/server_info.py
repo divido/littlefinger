@@ -13,5 +13,5 @@ class User(TableBase):
 	_plural = 'users'
 	__tablename__ = _plural
 
-	username = db.Column(db.String(32))
-	display = db.Column(db.String(32))
+	username = db.Column(db.Text)
+	display = db.Column(db.Text)

@@ -16,5 +16,5 @@ class Type(TableBase):
 	_plural = 'types'
 	__tablename__ = _plural
 
-	name = db.Column(db.String(64))
+	name = db.Column(db.Text)
 	description = db.Column(db.Text)

@@ -15,7 +15,7 @@ class Account(TableBase):
 	_plural = 'accounts'
 	__tablename__ = _plural
 
-	name = db.Column(db.String(64))
+	name = db.Column(db.Text)
 	kind = db.Column(db.Enum(
 		'checking',
 		'savings',
