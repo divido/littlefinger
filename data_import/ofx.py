@@ -7,6 +7,7 @@ from dateutil import parser
 from ofxclient.config import OfxConfig
 
 from raw import Account, Entry
+from .inferencing import inferTransactionFromEntry
 
 ofxConfig = OfxConfig(file_name=os.environ['LITTLEFINGER_OFX'])
 logging.info('Using OFX Config file: %s', os.environ['LITTLEFINGER_OFX'])
@@ -71,7 +72,7 @@ def importOfxEntries(session):
 	included in the statement are not changed or deleted.
 	"""
 
-	accounts = session.query(Account).all();
+	accounts = session.query(Account).all()
 
 	logging.info('Importing OFX Entries')
 	for ofxAccount in ofxConfig.accounts():
@@ -83,26 +84,32 @@ def importOfxEntries(session):
 			statement = ofxAccount.statement(days=60)
 			account.lastImport = datetime.now()
 
-			for transaction in statement.transactions:
+			for ofxEntry in statement.transactions:
+				if ofxEntry.amount == 0:
+					# Skip processing on $0 entries. These aren't real statement
+					# entries, anyway.
+					continue
+
 				entry = session.query(Entry).filter(
 					Entry.account_id == Account.id,
-					Entry.vendorID == transaction.id).one_or_none()
+					Entry.vendorID == ofxEntry.id).one_or_none()
 
 				if entry is None:
 					entry = Entry()
-					entry.vendorID = transaction.id
+					entry.vendorID = ofxEntry.id
 					session.add(entry)
 
-				entry.transactionDate = parseToDate(transaction.date)
-				entry.type = transaction.type
-				entry.amount = parseToInt(transaction.amount * 100)
-				entry.description = transaction.payee
-				entry.checkNum = parseToInt(transaction.checknum)
-				entry.memo = transaction.memo
-				entry.sic = parseToInt(transaction.sic)
-				entry.mcc = parseToInt(transaction.mcc)
+				entry.transactionDate = parseToDate(ofxEntry.date)
+				entry.type = ofxEntry.type
+				entry.amount = parseToInt(ofxEntry.amount * 100)
+				entry.description = ofxEntry.payee
+				entry.checkNum = parseToInt(ofxEntry.checknum)
+				entry.memo = ofxEntry.memo
+				entry.sic = parseToInt(ofxEntry.sic)
+				entry.mcc = parseToInt(ofxEntry.mcc)
 
 				entry.account = account
+				inferTransactionFromEntry(session, entry)
 
 		except Exception as e:
 			logging.error(e)
