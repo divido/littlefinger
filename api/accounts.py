@@ -37,7 +37,7 @@ def updateAccounts():
 		db.session.commit()
 
 	except Exception as e:
-		logger.error(e)
+		logging.error(e)
 
 @app.route('/accounts/update', methods=['POST'])
 def postUpdate():
